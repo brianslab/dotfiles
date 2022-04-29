@@ -22,4 +22,3 @@ cd ~/dotfiles
 ```
 ./uninstall.sh
 ```
-foo
