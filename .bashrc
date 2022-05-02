@@ -126,6 +126,9 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
+export PATH=$HOME/.brew/bin:$HOME/.brew/sbin:$PATH
+export HOMEBREW_CASK_OPTS="--appdir=$HOME/Applications"
+
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).

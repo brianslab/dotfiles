@@ -211,6 +211,10 @@ nnoremap <C-L> <C-W><C-L>
 " ctrl h = move left
 nnoremap <C-H> <C-W><C-H>
 
+nnoremap ^[[A <Up>
+nnoremap ^[[B <Down>
+nnoremap ^[[D <Left>
+nnoremap ^[[C <Right>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
