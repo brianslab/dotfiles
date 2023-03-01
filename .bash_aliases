@@ -11,7 +11,12 @@ alias bye='/home/brian/.bye'
 alias balena='/home/brian/.balena'
 alias finances='libreoffice /home/brian/Documents/finances/financials.ods'
 alias droidcam-update='/home/brian/.droidcam_update'
-alias gpo='git push origin'
+alias gpom='git push origin main'
 alias gph='git push heroku'
 alias parsec='parsecd app_daemon=1'
 alias hgpu='watch nvidia-smi'
+alias homelab_vpn="sudo wg-quick up homelab"
+alias homelab_vpn_off="sudo wg-quick down homelab"
+alias bonsai_vpn="sudo wg-quick up bonsai"
+alias bonsai_vpn_off="sudo wg-quick down bonsai"
+alias pqsl="psql"
