@@ -67,7 +67,7 @@ git_branch_or_tf_workspace() {
   if [ -n "$branch" ] && [ "$workspace" != "default" ]; then
     echo "(💾$branch/🌎$workspace)"
   elif [ -n "$branch" ]; then
-    echo "(💾$branch)"
+    echo "($branch)"
   elif [ "$workspace" != "default" ]; then
     echo "(🌎$workspace)"
   fi
