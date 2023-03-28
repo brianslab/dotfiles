@@ -56,8 +56,21 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-parse_git_branch() {
+git_branch() {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+}
+
+git_branch_or_tf_workspace() {
+  local branch=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
+  local workspace=$(terraform workspace show 2> /dev/null)
+
+  if [ -n "$branch" ] && [ "$workspace" != "default" ]; then
+    echo "(💾$branch/🌎$workspace)"
+  elif [ -n "$branch" ]; then
+    echo "(💾$branch)"
+  elif [ "$workspace" != "default" ]; then
+    echo "(🌎$workspace)"
+  fi
 }
 
 if [ "$color_prompt" = yes ]; then
@@ -70,7 +83,7 @@ if [ "$color_prompt" = yes ]; then
 	    info_color='\[\033[1;31m\]'
 	    prompt_symbol=💀
     fi
-    PS1=$prompt_color'┌──${debian_chroot:+($debian_chroot)──}('$info_color'\u${prompt_symbol}\h'$prompt_color')-[\[\033[0;1m\]\w'$prompt_color']\n'$prompt_color'└─'$info_color'\[\033[01;31m\]$(parse_git_branch)\[\033[00m\]\$ '
+    PS1=$prompt_color'┌──${debian_chroot:+($debian_chroot)──}('$info_color'\u${prompt_symbol}\h'$prompt_color')-[\[\033[0;1m\]\w'$prompt_color']\n'$prompt_color'└─\[\033[1;31m\]$(git_branch_or_tf_workspace)\[\033[0m\]\$ '
     # BackTrack red prompt
     #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
