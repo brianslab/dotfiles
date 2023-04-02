@@ -83,7 +83,7 @@ if [ "$color_prompt" = yes ]; then
 	    info_color='\[\033[1;31m\]'
 	    prompt_symbol=💀
     fi
-    if [ "$(which terraform)"  ]; then
+    if [ "$(which terraform)" = "/usr/bin/terraform" ]; then
         PS1=$prompt_color'┌──${debian_chroot:+($debian_chroot)──}('$info_color'\u${prompt_symbol}\h'$prompt_color')-[\[\033[0;1m\]\w'$prompt_color']\n'$prompt_color'└─\[\033[1;31m\]$(git_branch_or_tf_workspace)\[\033[0m\]\$ '
     else
         PS1=$prompt_color'┌──${debian_chroot:+($debian_chroot)──}('$info_color'\u${prompt_symbol}\h'$prompt_color')-[\[\033[0;1m\]\w'$prompt_color']\n'$prompt_color'└─\[\033[1;31m\]$(git_branch)\[\033[0m\]\$ '
