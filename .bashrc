@@ -36,25 +36,25 @@ if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
 fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
-    xterm-color|*-256color) color_prompt=yes;;
-esac
+#case "$TERM" in
+#    xterm-color|*-256color) color_prompt=yes;;
+#esac
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
 # should be on the output of commands, not on the prompt
-force_color_prompt=yes
+#force_color_prompt=yes
 
-if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+#if [ -n "$force_color_prompt" ]; then
+#    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
 	# We have color support; assume it's compliant with Ecma-48
 	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
 	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
-    else
-	color_prompt=
-    fi
-fi
+#	color_prompt=yes
+#    else
+#	color_prompt=
+#    fi
+#fi
 
 git_branch() {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
@@ -77,21 +77,26 @@ if [ "$color_prompt" = yes ]; then
     prompt_color='\[\033[;32m\]'
     info_color='\[\033[1;34m\]'
     #prompt_symbol=📛
-    prompt_symbol=🚀
+    prompt_symbol='🚀'
+    #prompt_symbol='@'
     if [ "$EUID" -eq 0 ]; then # Change prompt colors for root user
 	    prompt_color='\[\033[;94m\]'
 	    info_color='\[\033[1;31m\]'
 	    prompt_symbol=💀
     fi
-    if [ "$(which terraform)" = "/usr/bin/terraform" ]; then
-        PS1=$prompt_color'┌──${debian_chroot:+($debian_chroot)──}('$info_color'\u${prompt_symbol}\h'$prompt_color')-[\[\033[0;1m\]\w'$prompt_color']\n'$prompt_color'└─\[\033[1;31m\]$(git_branch_or_tf_workspace)\[\033[0m\]\$ '
-    else
+    #if [ "$(which terraform)" = "/usr/bin/terraform" ]; then
+    #    PS1=$prompt_color'┌──${debian_chroot:+($debian_chroot)──}('$info_color'\u${prompt_symbol}\h'$prompt_color')-[\[\033[0;1m\]\w'$prompt_color']\n'$prompt_color'└─\[\033[1;31m\]$(git_branch_or_tf_workspace)\[\033[0m\]\$ '
+    #else
         PS1=$prompt_color'┌──${debian_chroot:+($debian_chroot)──}('$info_color'\u${prompt_symbol}\h'$prompt_color')-[\[\033[0;1m\]\w'$prompt_color']\n'$prompt_color'└─\[\033[1;31m\]$(git_branch)\[\033[0m\]\$ '
-    fi
+    #fi
     # BackTrack red prompt
     #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$(parse_git_branch)\$ '
+    prompt_color='\[\033[;32m\]'
+    info_color='\[\033[1;34m\]'
+    hostname_color='\[\033[1;33m\]'
+    white='\[\033[0m\]'
+    PS1=$prompt_color'${debian_chroot:+($debian_chroot)}('$info_color'\u'$white'@'$hostname_color'\h'$prompt_color')-['$white'\w'$prompt_color']\n\[\033[1;31m\]$(git_branch)\[\033[0m\]\$ '
 fi
 unset color_prompt force_color_prompt
 
