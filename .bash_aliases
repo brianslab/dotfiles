@@ -13,6 +13,7 @@ alias finances='libreoffice /home/brian/Documents/finances/financials.ods'
 alias droidcam-update='/home/brian/.droidcam_update'
 alias gpom='git push origin main'
 alias gph='git push heroku'
+alias gcm='git add . && git commit -m'
 alias parsec='parsecd app_daemon=1'
 alias hgpu='watch nvidia-smi'
 alias homelab_vpn="sudo wg-quick up homelab"
