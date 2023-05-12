@@ -73,10 +73,16 @@ git_branch_or_tf_workspace() {
   fi
 }
 
+__conda_setup="$('/home/brian/Programs/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+conda_env() {
+  conda info --envs | grep * | cut -d ' ' -f1
+}
+
 if [ "$color_prompt" = yes ]; then
     prompt_color='\[\033[;32m\]'
     info_color='\[\033[1;34m\]'
     hostname_color='\[\033[1;33m\]'
+    conda_color='\[\033[1;35m\]'
     #prompt_symbol=📛
     prompt_symbol=🚀
     if [ "$EUID" -eq 0 ]; then # Change prompt colors for root user
@@ -86,7 +92,7 @@ if [ "$color_prompt" = yes ]; then
 	    prompt_symbol=💀
     fi
     if [ "$(which terraform)" = "/usr/bin/terraform" ]; then
-        PS1=$prompt_color'┌──${debian_chroot:+($debian_chroot)──}('$info_color'\u${prompt_symbol}'$hostname_color'\h'$prompt_color')-[\[\033[0;1m\]\w'$prompt_color']\n'$prompt_color'└─\[\033[1;31m\]$(git_branch_or_tf_workspace)\[\033[0m\]\$ '
+        PS1=$prompt_color'┌──${debian_chroot:+($debian_chroot)──}('$info_color'\u${prompt_symbol}'$hostname_color'\h'$prompt_color')-[\[\033[0;1m\]\w'$prompt_color']\n'$prompt_color'└─\[\033[1;31m\]$(git_branch_or_tf_workspace)'$conda_color'($(conda_env))\[\033[0m\]\$ '
     else
         PS1=$prompt_color'┌──${debian_chroot:+($debian_chroot)──}('$info_color'\u${prompt_symbol}'$hostname_color'\h'$prompt_color')-[\[\033[0;1m\]\w'$prompt_color']\n'$prompt_color'└─\[\033[1;31m\]$(git_branch)\[\033[0m\]\$ '
     fi
@@ -159,3 +165,18 @@ fi
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+#if [ $? -eq 0 ]; then
+    #eval "$__conda_setup"
+#else
+    if [ -f "/home/brian/Programs/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/brian/Programs/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/brian/Programs/anaconda3/bin:$PATH"
+    fi
+#fi
+unset __conda_setup
+# <<< conda initialize <<<
+
