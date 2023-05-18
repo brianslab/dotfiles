@@ -75,7 +75,11 @@ git_branch_or_tf_workspace() {
 
 __conda_setup="$('/home/brian/Programs/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
 conda_env() {
-  /home/brian/Programs/anaconda3/bin/conda info --envs | grep '*' | cut -d ' ' -f1
+  #/home/brian/Programs/anaconda3/bin/conda info --envs | grep '*' | cut -d ' ' -f1
+  if [ -n "$CONDA_PREFIX" ]; then
+    cenv=$(basename $CONDA_PREFIX)
+    echo "($cenv)"
+  fi
 }
 
 if [ "$color_prompt" = yes ]; then
@@ -92,7 +96,7 @@ if [ "$color_prompt" = yes ]; then
 	    prompt_symbol=💀
     fi
     if [ "$(which terraform)" = "/usr/bin/terraform" ]; then
-        PS1=$prompt_color'┌──${debian_chroot:+($debian_chroot)──}('$info_color'\u${prompt_symbol}'$hostname_color'\h'$prompt_color')-[\[\033[0;1m\]\w'$prompt_color']\n'$prompt_color'└─\[\033[1;31m\]$(git_branch_or_tf_workspace)'$conda_color'($(conda_env))\[\033[0m\]\$ '
+        PS1=$prompt_color'┌──${debian_chroot:+($debian_chroot)──}('$info_color'\u${prompt_symbol}'$hostname_color'\h'$prompt_color')-[\[\033[0;1m\]\w'$prompt_color']\n'$prompt_color'└─\[\033[1;31m\]$(git_branch_or_tf_workspace)'$conda_color'$(conda_env)\[\033[0m\]\$ '
     else
         PS1=$prompt_color'┌──${debian_chroot:+($debian_chroot)──}('$info_color'\u${prompt_symbol}'$hostname_color'\h'$prompt_color')-[\[\033[0;1m\]\w'$prompt_color']\n'$prompt_color'└─\[\033[1;31m\]$(git_branch)\[\033[0m\]\$ '
     fi
@@ -169,7 +173,7 @@ export NVM_DIR="$HOME/.nvm"
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 #if [ $? -eq 0 ]; then
-    #eval "$__conda_setup"
+#    eval "$__conda_setup"
 #else
     if [ -f "/home/brian/Programs/anaconda3/etc/profile.d/conda.sh" ]; then
         . "/home/brian/Programs/anaconda3/etc/profile.d/conda.sh"
