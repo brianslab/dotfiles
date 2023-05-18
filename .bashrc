@@ -75,9 +75,11 @@ git_branch_or_tf_workspace() {
 
 __conda_setup="$('/home/brian/Programs/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
 conda_env() {
-  #/home/brian/Programs/anaconda3/bin/conda info --envs | grep '*' | cut -d ' ' -f1
   if [ -n "$CONDA_PREFIX" ]; then
     cenv=$(basename $CONDA_PREFIX)
+    if [ "$cenv" == "anaconda3" ]; then
+        cenv="base"
+    fi
     echo "($cenv)"
   fi
 }
