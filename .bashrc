@@ -97,7 +97,7 @@ if [ "$color_prompt" = yes ]; then
         hostname_color='\[\033[1;33m\]'
 	    prompt_symbol=💀
     fi
-    if [ "$(which terraform)" = "/usr/bin/terraform" ]; then
+    if [ "$(which terraform 2> /dev/null)" = "/usr/bin/terraform" ]; then
         PS1=$prompt_color'┌──${debian_chroot:+($debian_chroot)──}('$info_color'\u${prompt_symbol}'$hostname_color'\h'$prompt_color')-[\[\033[0;1m\]\w'$prompt_color']\n'$prompt_color'└─\[\033[1;31m\]$(git_branch_or_tf_workspace)'$conda_color'$(conda_env)\[\033[0m\]\$ '
     else
         PS1=$prompt_color'┌──${debian_chroot:+($debian_chroot)──}('$info_color'\u${prompt_symbol}'$hostname_color'\h'$prompt_color')-[\[\033[0;1m\]\w'$prompt_color']\n'$prompt_color'└─\[\033[1;31m\]$(git_branch)'$conda_color'$(conda_env)\[\033[0m\]\$ '
